@@ -56,7 +56,7 @@ class enquiries_List extends WP_List_Table {
 		// }
 
 		$tablename = self::get_tablename();
-		echo $tablename;
+		// echo $tablename;
 
 		// $sql = "SELECT * FROM {$tablename}";
 		$sql = "SELECT * FROM {$tablename}";
@@ -72,7 +72,7 @@ class enquiries_List extends WP_List_Table {
 
 
 		$result = $wpdb->get_results( $sql, 'ARRAY_A' );
-		dd($result);
+		// dd($result);
 		return $result;
 	}
 
@@ -97,7 +97,6 @@ class enquiries_List extends WP_List_Table {
 	public static function get_tablename(){
 		if(isset($_GET['page'])){
 			global $wpdb;
-
 			return $wpdb->prefix.'eeforms_'.str_replace( '-', '_', sanitize_title_with_dashes( get_the_title($_GET['page']) ) );
 		}
 		
@@ -135,17 +134,7 @@ class enquiries_List extends WP_List_Table {
 	 * @return mixed
 	 */
 	public function column_default( $item, $column_name ) {
-		// switch ( $column_name ) {
-			// case 'id':
-			// case 'name':
-			// case 'telephone':
-			// case 'email':
-			// case 'message':
-			// case 'label':
-				return $item[ $column_name ];
-			// default:
-				// return print_r( $item, true ); //Show the whole array for troubleshooting purposes
-		// }
+		return $item[ $column_name ];
 	}
 
 	/**
