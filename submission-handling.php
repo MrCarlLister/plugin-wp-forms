@@ -43,56 +43,56 @@ class submissionHandling
 
     public function uploadAndStoreFiles($file){
         
+        // Create a random string for folder structure
+        $hash = uniqid('',true);
+        
+        // Gets uploads dir
+        $wp_uploads = wp_upload_dir(null,false);
+
+        // Sets the target directory
+        $target_dir = $wp_uploads['basedir'].'/ee_forms/'.$hash.'/';
+
+        // Creates directory (if it doesn't exist)
+        wp_mkdir_p( $target_dir );
+
+        // Sets target file path
+        $target_file = $target_dir .  basename($file["name"]);
+
+        // Sets image upload to 1 (uploaded) by default
+        $uploadOk = 1;
+
+        // Gets the file type
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
 
-    $hash = uniqid('',true); // unique idea to avoid duplicates
-    $wp_uploads = wp_upload_dir(null,false);
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            $file =  "Sorry, file already exists – File not uploaded";  // sets message to be stored, sent in email to customer
+            $uploadOk = 0; // sets to upload error
+        }
 
-    $target_dir = $wp_uploads['basedir'].'/ee_forms/'.$hash.'/';
-    wp_mkdir_p( $target_dir );
-    $target_file = $target_dir .  basename($file["name"]);
-    // $file_url = false;
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        // Check file size
+        if ($file["size"] > 4000000) {
+            $file =  "Sorry, your file is too large – File not uploaded";  // sets message to be stored, sent in email to customer
+            $uploadOk = 0; // sets to upload error
+        }
 
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "pdf" && $imageFileType != "gif" ) {
+            $file =  "Sorry, only JPG, JPEG, PNG & GIF files are allowed – File not uploaded";  // sets message to be stored, sent in email to customer
+            $uploadOk = 0; // sets to upload error
+        }
 
+        if ($uploadOk == 1) {
+            if (move_uploaded_file($file["tmp_name"], $target_file)) {
+                $file = '<a href="'.$wp_uploads['baseurl'].'/ee_forms/'.$hash.'/'.$file["name"].'">Link to file</a>'; // sets message to be stored, sent in email to customer
+            } else {
+                $file = "Sorry, there was an error uploading your file."; // sets message to be stored, sent in email to customer
+            }
+        }
 
-    // Check if file already exists
-    if (file_exists($target_file)) {
-      echo json_encode( "Sorry, file already exists.");
-      $uploadOk = 0;
-    }
+        return $file;
 
-    // Check file size
-    if ($file["size"] > 4000000) {
-      echo json_encode( "Sorry, your file is too large.");
-      $uploadOk = 0;
-    }
-
-    // Allow certain file formats
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "pdf" && $imageFileType != "gif" ) {
-      echo json_encode( "Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
-      $uploadOk = 0;
-    }
-
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-      echo json_encode( "Sorry, your file was not uploaded.");
-      $file = "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
-    } else {
-      if (move_uploaded_file($file["tmp_name"], $target_file)) {
-        echo json_encode( "The file ". basename( $file["name"]). " has been uploaded.");
-        $file = '<a href="'.$wp_uploads['baseurl'].'/ee_forms/'.$hash.'/'.$file["name"].'">Link to file</a>';
-      } else {
-        echo json_encode( "Sorry, there was an error uploading your file.");
-        $file = "Sorry, there was an error uploading your file.";
-      }
-    }
-
-    return $file;
-
-    // die();
 
     }
 
