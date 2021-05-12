@@ -175,6 +175,7 @@ class FormHandling {
        // Compares column headings with posted data, retrieves column data submitted only
        $usefulData = array_intersect_key($post,$columns);
 
+
        return $usefulData;
     }
 

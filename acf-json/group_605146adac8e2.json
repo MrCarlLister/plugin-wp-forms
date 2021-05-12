@@ -31,7 +31,7 @@
             "required": 1,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -43,14 +43,14 @@
         },
         {
             "key": "field_605146d0adb76",
-            "label": "Location",
+            "label": "Location of person",
             "name": "location",
             "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -69,7 +69,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -78,6 +78,23 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_609a53e924024",
+            "label": "Date",
+            "name": "date",
+            "type": "date_picker",
+            "instructions": "Date of the testimonial",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "d\/m\/Y",
+            "return_format": "F, Y",
+            "first_day": 1
         },
         {
             "key": "field_605212203fbdd",
@@ -130,5 +147,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1615991368
+    "modified": 1620726949
 }

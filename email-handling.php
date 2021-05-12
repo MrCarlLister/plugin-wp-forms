@@ -12,7 +12,7 @@ class emailHandling
         $headers[] = 'Content-Type: text/html; charset=UTF-8';
         $html = $this->createEmail($ID,$type);
 
-        // dd($headers);
+        // dd($to,true);
         wp_mail($to,$subject,$html,$headers);
     }
 
@@ -36,6 +36,7 @@ class emailHandling
     {
         $logo = $this->renderLogo($ID);
         $logo = wp_upload_dir()['basedir'].substr($logo, strpos($logo, "/wp-content/uploads/") + 19);    
+        // dd($logo,true);
         $uid = 'logo';
 
         global $phpmailer;
