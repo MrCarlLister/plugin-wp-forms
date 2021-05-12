@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Register image and text block
+ * Register the gutenberg block
  *
  * @return void
  */

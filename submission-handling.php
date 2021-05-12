@@ -6,6 +6,11 @@ class submissionHandling
 {
     const sandbox = FALSE;
 
+    
+    static private function redirect() {
+        return $_POST['redirect'] ?? '/thank-you';
+    }
+
     static private function submitEmail()
     {
         // Gets the form id
@@ -39,6 +44,8 @@ class submissionHandling
             }
 
         }
+
+        header('Location: '. submissionHandling::redirect());
     }
 
     public function uploadAndStoreFiles($file){
@@ -115,6 +122,7 @@ class submissionHandling
 
                 // Set files key to input name, return will either be link to file or string with error
                 $files[$key] = submissionHandling::uploadAndStoreFiles($file);
+
             endforeach;
 
             // Merge the rest of the post data with new files array
@@ -137,14 +145,15 @@ class submissionHandling
 
         // Checks if sandbox mode enabled
         if(FALSE == submissionHandling::sandbox){
+
             // Insert submission data
             $wpdb->insert(
                 $table_name,
                 $usefulData
             );
+
         }
-        // echo 'asdsds';
-        // die();
+
         submissionHandling::submitEmail();
     }
 

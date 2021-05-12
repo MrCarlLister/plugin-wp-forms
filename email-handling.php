@@ -34,9 +34,8 @@ class emailHandling
 
     function renderHeader($ID)
     {
-        $logo = $this->renderLogo($ID);
+        $logo = (string) $this->renderLogo($ID);
         $logo = wp_upload_dir()['basedir'].substr($logo, strpos($logo, "/wp-content/uploads/") + 19);    
-        // dd($logo,true);
         $uid = 'logo';
 
         global $phpmailer;
