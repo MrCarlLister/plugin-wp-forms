@@ -50,7 +50,6 @@ class emailHandling
             <html>
                 
                 <body class="">
-                <span class="preheader">preheader here</span>
                 <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body" style="width: 100%;">
                     <tr>
                     <td>&nbsp;</td>
